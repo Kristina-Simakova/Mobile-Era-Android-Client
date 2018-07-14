@@ -1,4 +1,4 @@
-package rocks.mobileera.mobileera.fragments
+package rocks.mobileera.mobileera.viewModels
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.MutableLiveData
@@ -39,6 +39,8 @@ class ScheduleViewModel : ViewModel() {
                         workshopsSnapshot == null || scheduleSnapshot == null) {
                     return
                 }
+
+                // TODO: complete loadSchedule method
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

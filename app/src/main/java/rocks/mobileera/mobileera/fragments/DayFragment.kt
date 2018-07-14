@@ -2,23 +2,29 @@ package rocks.mobileera.mobileera.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import rocks.mobileera.mobileera.R
+import rocks.mobileera.mobileera.adapters.DayAdapter
 import rocks.mobileera.mobileera.model.Day
+import rocks.mobileera.mobileera.model.Session
 
 
 class DayFragment: Fragment() {
 
     private var title: Int = R.string.day1
     private var isWorkshopsDay: Boolean = false
+    private lateinit var dayAdapter: DayAdapter
+    private var listener: OnSessionListListener? = null
 
     var day: Day? = null
         set(value) {
             field = value
             print("Data has been updated")
-            // TODO: reload recyclerView
+            dayAdapter.day = value
         }
 
     companion object {
@@ -36,6 +42,20 @@ class DayFragment: Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_recyclerview, container, false)
+        dayAdapter = DayAdapter(activity?.applicationContext, day, listener)
+        val view = inflater.inflate(R.layout.fragment_day, container, false)
+
+        if (view is RecyclerView) {
+            with(view) {
+                layoutManager = LinearLayoutManager(context)
+                adapter = dayAdapter
+            }
+        }
+
+        return view
+    }
+
+    interface OnSessionListListener {
+        fun onSessionClicked(session: Session?)
     }
 }

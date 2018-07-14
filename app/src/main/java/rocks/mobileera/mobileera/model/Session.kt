@@ -43,7 +43,7 @@ class Session {
             return false // lunch, system announce, etc.
         }
 
-        return Preferences().read(context, KEY_FAVORITE_SESSION + id.toString())
+        return Preferences(context).read(KEY_FAVORITE_SESSION + id.toString())
     }
 
     fun toggleFavorites(context: Context) {
@@ -52,6 +52,6 @@ class Session {
         }
 
         val oldValue = isFavorite(context)
-        Preferences().store(context, KEY_FAVORITE_SESSION + id.toString(), !oldValue)
+        Preferences(context).store(KEY_FAVORITE_SESSION + id.toString(), !oldValue)
     }
 }

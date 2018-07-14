@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_schedule.*
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.DaysAdapter
 import rocks.mobileera.mobileera.model.Day
+import rocks.mobileera.mobileera.viewModels.ScheduleViewModel
 
 class ScheduleFragment : Fragment() {
 
