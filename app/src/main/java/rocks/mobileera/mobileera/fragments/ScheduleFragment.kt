@@ -31,11 +31,12 @@ class ScheduleFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        daysFragments.add(DayFragment.newInstance(R.string.workshops, null, true))
-        daysFragments.add(DayFragment.newInstance(R.string.day1, null, false))
-        daysFragments.add(DayFragment.newInstance(R.string.day2, null, false))
+        daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.workshops), null, true))
+        daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day1), null, false))
+        daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day2), null, false))
         daysViewPager.adapter = DaysAdapter(childFragmentManager, daysFragments)
-        daysViewPager.currentItem = 1
+        daysViewPager.currentItem = 1 // TODO: potentially, bypass it from Activity, etc.
+
 
         daysTabLayout.setupWithViewPager(daysViewPager)
 

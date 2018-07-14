@@ -29,7 +29,12 @@ class Preferences(private var context: Context) {
     }
 
     private fun readArray(key: String): ArrayList<String> {
-        return ArrayList(context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0).getString(key, "").split("•"))
+        val value = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0).getString(key, "")
+        if (value.isEmpty() || !value.contains("•")) {
+            return ArrayList()
+        }
+
+        return ArrayList(value.split("•"))
     }
 
     var showOnlyFavorite: Boolean
@@ -38,7 +43,7 @@ class Preferences(private var context: Context) {
             store(SHOW_ONLY_FAVORITES, value)
         }
 
-    var allTags: List<String>
+    var allTags: ArrayList<String>
         get() = readArray(ALL_TAGS)
         set(value) {
             store(ALL_TAGS, value)

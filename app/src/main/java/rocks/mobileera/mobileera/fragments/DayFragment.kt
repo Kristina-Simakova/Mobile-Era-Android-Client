@@ -15,20 +15,20 @@ import rocks.mobileera.mobileera.model.Session
 
 class DayFragment: Fragment() {
 
-    private var title: Int = R.string.day1
+    private var title: String? = ""
     private var isWorkshopsDay: Boolean = false
-    private lateinit var dayAdapter: DayAdapter
+    private var dayAdapter: DayAdapter? = null
     private var listener: OnSessionListListener? = null
 
     var day: Day? = null
         set(value) {
             field = value
             print("Data has been updated")
-            dayAdapter.day = value
+            dayAdapter?.day = value
         }
 
     companion object {
-        internal fun newInstance(title: Int, day: Day?, isWorkshopsDay: Boolean): DayFragment {
+        internal fun newInstance(title: String?, day: Day?, isWorkshopsDay: Boolean): DayFragment {
             val fragment = DayFragment()
             fragment.title = title
             fragment.day = day
@@ -38,7 +38,11 @@ class DayFragment: Fragment() {
     }
 
     override fun toString(): String {
-        return getString(title)
+        title?.let {title ->
+            return title
+        }
+
+        return ""
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
