@@ -16,6 +16,10 @@ class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val avatarImageView: ImageView = view.avatarImageView
 
     fun set(context: Context?, session: Session?, track: Int) {
+        val context = context?.let { it } ?: return
+        val session = session?.let { it } ?: return
+
+
         //Picasso.get().load(Uri.parse(item.photoUrl)).into(holder.avatarImageView)
 
     }

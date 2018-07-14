@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintLeft_toEndOf="@+id/avatarImageView"
         app:layout_constraintStart_toEndOf="@+id/avatarImageView"
         app:layout_constraintTop_toTopOf="@+id/avatarImageView" />
 
@@ -35,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintLeft_toEndOf="@+id/avatarImageView"
         app:layout_constraintStart_toEndOf="@+id/avatarImageView"
         app:layout_constraintTop_toBottomOf="@+id/avatarImageView" />
 
