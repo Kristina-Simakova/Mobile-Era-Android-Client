@@ -28,16 +28,14 @@ class ScheduleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.workshops), null, true))
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day1), null, false))
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day2), null, false))
         daysViewPager.adapter = DaysAdapter(childFragmentManager, daysFragments)
-        daysViewPager.currentItem = 1 // TODO: potentially, bypass it from Activity, etc.
-
-
+        daysViewPager.currentItem = 1
+        daysViewPager.offscreenPageLimit = 2
         daysTabLayout.setupWithViewPager(daysViewPager)
 
         viewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
@@ -47,5 +45,4 @@ class ScheduleFragment : Fragment() {
             daysFragments[2].day = days?.getOrNull(2)
         })
     }
-
 }
