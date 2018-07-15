@@ -4,6 +4,10 @@ import android.content.Context
 
 class Preferences(private var context: Context) {
 
+    companion object {
+        val domain = "https://2017.mobileera.rocks"
+    }
+
     private val SHARED_PREFERENCES_KEY: String = "SHARED_PREFERENCES_KEY"
 
     private val SELECTED_TAGS: String = "SELECTED_TAGS"

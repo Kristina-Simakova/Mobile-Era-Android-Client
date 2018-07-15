@@ -7,6 +7,7 @@
     <color name="colorPrimaryText">#333333</color>
     <color name="colorSecondaryText">#909B9B</color>
     <color name="colorSelection">#F0F0F0</color>
-    <color name="colorThon">#C34A52</color>
+    <color name="colorSelectionDark">#CCCCCC</color>
+    <color name="colorThor">#C34A52</color>
 
 </resources>

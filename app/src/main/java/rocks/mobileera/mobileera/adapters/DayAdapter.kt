@@ -47,10 +47,14 @@ class DayAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder  {
 
         if (viewType == VIEW_HOLDER_TYPE_HEADER) {
-            return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_header_timeslot, parent, false));
+            return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_header_timeslot, parent, false))
         }
 
-        return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false));
+        if (viewType == VIEW_HOLDER_TYPE_SESSION) {
+            return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false))
+        }
+
+        return LegendViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_legend, parent, false))
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -126,7 +130,10 @@ class DayAdapter(
                 for (session in sessions) {
                     if (isMatchingFilter(context, session)) {
                         data.add(session)
-                        hasSessions = true
+
+                        if (!session.isWorkshop()) {
+                            hasSessions = true
+                        }
                     }
                 }
             }
@@ -157,6 +164,8 @@ class DayAdapter(
 
         return true
     }
+
+    inner class LegendViewHolder(val view: View) : RecyclerView.ViewHolder(view) {}
 
     inner class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val timeTextView: TextView = view.timeTextView

@@ -9,4 +9,9 @@
     <string name="speakers">Speakers</string>
     <string name="schedule">Schedule</string>
     <string name="venue">Venue</string>
+
+    <string name="room">Room:</string>
+    <string name="odin">Odin</string>
+    <string name="freyja">Freyja</string>
+    <string name="thor">Thor</string>
 </resources>
