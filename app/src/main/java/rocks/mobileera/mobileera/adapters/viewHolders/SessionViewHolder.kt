@@ -131,7 +131,7 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?,
     private fun setAvatar(session: Session) {
         session.speakersList?.firstOrNull()?.photoUrl?.let {photoUrl ->
 
-            Picasso.get().load(Uri.parse(domain + photoUrl)).transform(CircleTransform()).into(avatarImageView, PicCallback())
+            Picasso.get().load(Uri.parse(domain + photoUrl)).transform(CircleTransform()).into(avatarImageView)
         } ?: run {
             session.image?.let {sessionUrl ->
                 if (sessionUrl.isEmpty()) {
@@ -144,16 +144,5 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?,
                 avatarImageView.setImageResource(android.R.color.transparent)
             }
         }
-    }
-}
-
-class PicCallback : Callback {
-
-    override fun onSuccess() {
-        print("успех")
-    }
-
-    override fun onError(e: Exception) {
-        print(e)
     }
 }

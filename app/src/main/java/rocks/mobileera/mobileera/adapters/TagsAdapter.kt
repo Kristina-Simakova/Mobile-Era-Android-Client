@@ -15,6 +15,18 @@ class TagsAdapter (
         private val listener: TagCallback?)
     : RecyclerView.Adapter<TagsAdapter.ViewHolder>() {
 
+    private val onClickListener: View.OnClickListener
+
+    init {
+        onClickListener = View.OnClickListener { v ->
+            val position = v.tag
+            if (position is Int) {
+                tags.getOrNull(position)?.let {tag ->
+                    listener?.onTagClick(tag)
+                }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsAdapter.ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
@@ -29,6 +41,11 @@ class TagsAdapter (
         tags.getOrNull(position)?.let {tag ->
             holder.tagTextView.text = tag
             holder.tagTextView.setBackgroundResource(Tag.background(tag))
+        }
+
+        with(holder.itemView) {
+            tag = position
+            setOnClickListener(onClickListener)
         }
     }
 
