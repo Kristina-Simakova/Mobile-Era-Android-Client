@@ -10,14 +10,16 @@ import kotlinx.android.synthetic.main.fragment_speakers.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.SpeakersAdapter
+import rocks.mobileera.mobileera.adapters.interfaces.SpeakerCallback
 import rocks.mobileera.mobileera.model.Speaker
 import rocks.mobileera.mobileera.viewModels.SpeakersViewModel
 
 class SpeakersFragment : Fragment() {
 
-    private var listener: OnSpeakersListListener? = null
+    private var listener: SpeakerCallback? = null
     private lateinit var viewModel: SpeakersViewModel
     private lateinit var speakersAdapter: SpeakersAdapter
 
@@ -39,7 +41,7 @@ class SpeakersFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnSpeakersListListener) {
+        if (context is SpeakerCallback) {
             listener = context
         }
     }
@@ -48,9 +50,4 @@ class SpeakersFragment : Fragment() {
         super.onDetach()
         listener = null
     }
-
-    interface OnSpeakersListListener {
-        fun onSpeakerClicked(speaker: Speaker?)
-    }
-
 }

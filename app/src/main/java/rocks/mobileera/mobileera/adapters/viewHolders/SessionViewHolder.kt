@@ -19,7 +19,6 @@ import rocks.mobileera.mobileera.model.Session
 import rocks.mobileera.mobileera.utils.CircleTransform
 import rocks.mobileera.mobileera.utils.Preferences.Companion.domain
 import android.support.v7.widget.DividerItemDecoration
-import com.squareup.picasso.Callback
 import rocks.mobileera.mobileera.adapters.interfaces.AddToFavoritesCallback
 
 class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?, private val addToFavoritesListener: AddToFavoritesCallback?) : RecyclerView.ViewHolder(view) {

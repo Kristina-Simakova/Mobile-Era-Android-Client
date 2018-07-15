@@ -19,7 +19,11 @@
         android:id="@+id/navigation_speakers"
         android:name="rocks.mobileera.mobileera.fragments.SpeakersFragment"
         android:label="fragment_speakers"
-        tools:layout="@layout/fragment_speakers" />
+        tools:layout="@layout/fragment_speakers" >
+        <action
+            android:id="@+id/action_navigation_speakers_to_speakerFragment"
+            app:destination="@id/speakerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_venue"
@@ -31,4 +35,9 @@
         android:name="rocks.mobileera.mobileera.fragments.SessionFragment"
         android:label="fragment_session"
         tools:layout="@layout/fragment_session" />
+    <fragment
+        android:id="@+id/speakerFragment"
+        android:name="rocks.mobileera.mobileera.fragments.SpeakerFragment"
+        android:label="fragment_speaker"
+        tools:layout="@layout/fragment_speaker" />
 </navigation>

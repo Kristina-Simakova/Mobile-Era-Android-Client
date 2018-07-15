@@ -1,5 +1,6 @@
 package rocks.mobileera.mobileera.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -18,7 +19,11 @@ import rocks.mobileera.mobileera.model.Session
 import rocks.mobileera.mobileera.utils.Preferences
 
 
-class DayFragment: Fragment(), TagCallback, SessionCallback, AddToFavoritesCallback {
+class DayFragment: Fragment(), TagCallback {
+
+    private var sessionListener: SessionCallback? = null
+    private var tagListener: TagCallback? = null
+    private var addToFavoritesListener: AddToFavoritesCallback? = null
 
     private var title: String? = ""
     private var isWorkshopsDay: Boolean = false
@@ -49,8 +54,30 @@ class DayFragment: Fragment(), TagCallback, SessionCallback, AddToFavoritesCallb
         return ""
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is AddToFavoritesCallback) {
+            addToFavoritesListener = context
+        }
+
+        if (context is TagCallback) {
+            tagListener = context
+        }
+
+        if (context is SessionCallback) {
+            sessionListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        addToFavoritesListener = null
+        tagListener = null
+        sessionListener = null
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dayAdapter = DayAdapter(activity?.applicationContext, day, this, this, this)
+        dayAdapter = DayAdapter(activity?.applicationContext, day, sessionListener, addToFavoritesListener, tagListener)
         val view = inflater.inflate(R.layout.fragment_day, container, false)
 
         if (view is RecyclerView) {
@@ -68,19 +95,6 @@ class DayFragment: Fragment(), TagCallback, SessionCallback, AddToFavoritesCallb
             Preferences(context).toggleSelectedTag(tag)
 
             // TODO: broadcast even to update UI
-        }
-    }
-
-    override fun onSessionClick(session: Session?) {
-        session?.let { value ->
-            val bundle = SessionFragment.createBundle(value)
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigation_schedule_to_sessionFragment, bundle)
-        }
-    }
-
-    override fun onAddToFavoritesClick(session: Session?) {
-        activity?.applicationContext?.let {context ->
-            session?.toggleFavorites(context)
         }
     }
 }

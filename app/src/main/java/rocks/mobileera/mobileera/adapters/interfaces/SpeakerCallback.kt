@@ -3,5 +3,5 @@ package rocks.mobileera.mobileera.adapters.interfaces
 import rocks.mobileera.mobileera.model.Speaker
 
 interface SpeakerCallback {
-    fun onSpeaker(speaker: Speaker?)
+    fun onSpeakerClick(speaker: Speaker?)
 }
