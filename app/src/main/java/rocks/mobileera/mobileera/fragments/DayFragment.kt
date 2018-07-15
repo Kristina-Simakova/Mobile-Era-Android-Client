@@ -1,5 +1,7 @@
 package rocks.mobileera.mobileera.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,25 +10,30 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.DayAdapter
 import rocks.mobileera.mobileera.adapters.interfaces.AddToFavoritesCallback
 import rocks.mobileera.mobileera.adapters.interfaces.SessionCallback
 import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.model.Day
-import rocks.mobileera.mobileera.model.Session
-import rocks.mobileera.mobileera.utils.Preferences
+import rocks.mobileera.mobileera.viewModels.ScheduleViewModel
 
 
-class DayFragment: Fragment(), TagCallback {
+class DayFragment: Fragment() {
+
+    private val ARGS_DAY_INDEX = "ARGS_DAY_INDEX"
+    private val ARGS_TITLE = "ARGS_TITLE"
 
     private var sessionListener: SessionCallback? = null
     private var tagListener: TagCallback? = null
     private var addToFavoritesListener: AddToFavoritesCallback? = null
 
-    private var title: String? = ""
-    private var isWorkshopsDay: Boolean = false
+    private var title: CharSequence? = ""
+    private var dayIndex: Int = 0
+
+    private val isWorkshopsDay: Boolean
+        get() = dayIndex == 0
+
     private var dayAdapter: DayAdapter? = null
 
     var day: Day? = null
@@ -36,19 +43,21 @@ class DayFragment: Fragment(), TagCallback {
             dayAdapter?.day = value
         }
 
+
     companion object {
-        internal fun newInstance(title: String?, day: Day?, isWorkshopsDay: Boolean): DayFragment {
+        internal fun newInstance(title: CharSequence?, dayIndex: Int): DayFragment {
             val fragment = DayFragment()
             fragment.title = title
-            fragment.day = day
-            fragment.isWorkshopsDay = isWorkshopsDay
+            fragment.dayIndex = dayIndex
             return fragment
         }
     }
 
     override fun toString(): String {
         title?.let {title ->
-            return title
+            if (title is String) {
+                return title
+            }
         }
 
         return ""
@@ -77,8 +86,16 @@ class DayFragment: Fragment(), TagCallback {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dayAdapter = DayAdapter(activity?.applicationContext, day, sessionListener, addToFavoritesListener, tagListener)
         val view = inflater.inflate(R.layout.fragment_day, container, false)
+
+        parentFragment?.let {
+            dayAdapter = DayAdapter(activity?.applicationContext, day, sessionListener, addToFavoritesListener, tagListener)
+
+            val viewModel = ViewModelProviders.of(it).get(ScheduleViewModel::class.java)
+            viewModel.getDays()?.observe(this, Observer<List<Day>> { days ->
+                day = days?.getOrNull(dayIndex)
+            })
+        }
 
         if (view is RecyclerView) {
             with(view) {
@@ -90,11 +107,15 @@ class DayFragment: Fragment(), TagCallback {
         return view
     }
 
-    override fun onTagClick(tag: String) {
-        activity?.applicationContext?.let {context ->
-            Preferences(context).toggleSelectedTag(tag)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        savedInstanceState?.getInt(ARGS_DAY_INDEX, 0)?.let { dayIndex = it }
+        savedInstanceState?.getString(ARGS_TITLE, "")?.let { title = it }
+    }
 
-            // TODO: broadcast even to update UI
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(ARGS_DAY_INDEX, dayIndex)
+        title?.let { outState.putString(ARGS_TITLE, it.toString()) }
     }
 }
