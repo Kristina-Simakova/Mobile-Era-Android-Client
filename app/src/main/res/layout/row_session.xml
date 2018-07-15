@@ -7,6 +7,14 @@
     android:layout_height="wrap_content"
     tools:ignore="ContentDescription" >
 
+    <View
+        android:id="@+id/colorBarView"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ImageView
         android:id="@+id/avatarImageView"
         android:layout_width="64dp"
@@ -20,6 +28,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/extraSpeakersTextView"
+        android:visibility="gone"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:background="@drawable/background_rounded_dark"
+
+        app:layout_constraintBottom_toBottomOf="@+id/avatarImageView"
+        app:layout_constraintEnd_toEndOf="@+id/avatarImageView"
+        tools:ignore="SmallSp" />
+
+    <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,8 +54,6 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-light"
         android:textAppearance="?attr/textAppearanceListItem"
-
-        android:text="Tools we use: Their Design and Influence"
 
         android:layout_marginStart="16dp"
         android:layout_marginEnd="48dp"
@@ -58,14 +79,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Majid Hajain"
-
             android:textColor="@color/colorPrimaryText"
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <FrameLayout
-            android:id="@+id/separatorNameRoom"
+        <View
+            android:id="@+id/separatorNameRoomView"
             android:layout_width="1dp"
             android:layout_height="12dp"
             android:background="@color/colorSecondaryText"
@@ -80,9 +99,7 @@
             android:layout_marginStart="4dp"
             android:textColor="@color/colorSecondaryText"
             android:textSize="12sp"
-            android:ellipsize="end"
-
-            android:text="Thor" />
+            android:ellipsize="end" />
 
     </LinearLayout>
 

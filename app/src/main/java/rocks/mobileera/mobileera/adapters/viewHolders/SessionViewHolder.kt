@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,37 +20,79 @@ class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val nameTextView: TextView = view.nameTextView
     val avatarImageView: ImageView = view.avatarImageView
     val addToFavorites: ImageButton = view.addToFavoritesButton
+    val separatorNameRoomView: View = view.separatorNameRoomView
+    val colorBarView: View = view.colorBarView
+    val extraSpeakersTextView: TextView = view.extraSpeakersTextView
+    val roomTextView: TextView = view.roomTextView
+
 
     fun set(context: Context?, session: Session?, track: Int) {
         val context = context?.let { it } ?: return
         val session = session?.let { it } ?: return
 
+        titleTextView.text = (session.title + (if (session.lightning == true) " ⚡" else ""))
+        nameTextView.text = session.speakersList?.joinToString(separator = ", ") { speaker -> speaker.name }
 
-
-
-
+        session.speakersList?.count()?.let {speakersCount ->
+            extraSpeakersTextView.visibility = (if (speakersCount < 2) View.GONE else View.VISIBLE)
+            extraSpeakersTextView.text = ("+" + (speakersCount - 1))
+        }
 
         setFavoritesButton(context, session)
         setAvatar(session)
+        setTrack(session, track)
+    }
 
+    private fun setTrack(session: Session, track: Int) {
+        if (session.isWorkshop() || session.isSystemAnnounce()) {
+            colorBarView.visibility = View.GONE
+            separatorNameRoomView.visibility = View.GONE
+            roomTextView.visibility = View.GONE
+            return
+        }
+
+        when (track) {
+            0 -> {
+                colorBarView.setBackgroundResource(R.color.colorOdin)
+                roomTextView.setText(R.string.odin)
+            }
+
+            1 -> {
+                colorBarView.setBackgroundResource(R.color.colorFreyja)
+                roomTextView.setText(R.string.freyja)
+            }
+
+            2 -> {
+                colorBarView.setBackgroundResource(R.color.colorThor)
+                roomTextView.setText(R.string.thor)
+            }
+        }
+
+        colorBarView.visibility = View.VISIBLE
+        separatorNameRoomView.visibility = View.VISIBLE
+        roomTextView.visibility = View.VISIBLE
     }
 
     private fun setFavoritesButton(context: Context, session: Session) {
         addToFavorites.visibility = (if (session.isSystemAnnounce()) View.GONE else View.VISIBLE)
         addToFavorites.setImageResource( if (session.isFavorite(context)) R.drawable.star_filled else R.drawable.star_empty )
+
+        addToFavorites.setOnClickListener {  }
     }
 
     private fun setAvatar(session: Session) {
-        session.speakersList?.firstOrNull()?.photoUrl.let {photoUrl ->
+        session.speakersList?.firstOrNull()?.photoUrl?.let {photoUrl ->
             Picasso.get().load(Uri.parse(photoUrl)).transform(CircleTransform()).into(avatarImageView)
         } ?: run {
-            if (session.image.isNullOrEmpty()) {
-                avatarImageView.setImageResource(android.R.color.transparent)
-                return
-            }
+            session.image?.let {sessionUrl ->
+                if (sessionUrl.isEmpty()) {
+                    avatarImageView.setImageResource(android.R.color.transparent)
+                    return
+                }
 
-            session.image.let {sessionUrl ->
                 Picasso.get().load(Uri.parse(domain + sessionUrl)).transform(CircleTransform()).into(avatarImageView)
+            } ?: run {
+                avatarImageView.setImageResource(android.R.color.transparent)
             }
         }
     }
