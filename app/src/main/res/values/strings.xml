@@ -9,6 +9,9 @@
     <string name="speakers">Speakers</string>
     <string name="schedule">Schedule</string>
     <string name="venue">Venue</string>
+    <string name="venue_address">Felix Konferansesenter\nBryggetorget 3\n0250 Oslo</string>
+    <string name="party_venue">Party Venue</string>
+    <string name="party_venue_address">Beer Palace\nHolmens gate 3\n0250 Oslo</string>
 
     <string name="room">Room:</string>
     <string name="odin">Odin</string>

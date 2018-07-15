@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_schedule"
         android:name="rocks.mobileera.mobileera.fragments.ScheduleFragment"
-        android:label="fragment_schedules"
+        android:label="@string/schedule"
         tools:layout="@layout/fragment_schedule" >
         <action
             android:id="@+id/action_navigation_schedule_to_sessionFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/navigation_speakers"
         android:name="rocks.mobileera.mobileera.fragments.SpeakersFragment"
-        android:label="fragment_speakers"
+        android:label="@string/speakers"
         tools:layout="@layout/fragment_speakers" >
         <action
             android:id="@+id/action_navigation_speakers_to_speakerFragment"
@@ -28,16 +28,16 @@
     <fragment
         android:id="@+id/navigation_venue"
         android:name="rocks.mobileera.mobileera.fragments.VenueFragment"
-        android:label="fragment_venue"
+        android:label="@string/venue"
         tools:layout="@layout/fragment_venue" />
     <fragment
         android:id="@+id/sessionFragment"
         android:name="rocks.mobileera.mobileera.fragments.SessionFragment"
-        android:label="fragment_session"
+        android:label=""
         tools:layout="@layout/fragment_session" />
     <fragment
         android:id="@+id/speakerFragment"
         android:name="rocks.mobileera.mobileera.fragments.SpeakerFragment"
-        android:label="fragment_speaker"
+        android:label=""
         tools:layout="@layout/fragment_speaker" />
 </navigation>

@@ -29,13 +29,4 @@ class SpeakerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_speaker, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayShowHomeEnabled(true)
-        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-
 }

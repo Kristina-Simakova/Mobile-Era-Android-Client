@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_speakers.*
 import android.view.LayoutInflater
@@ -36,6 +37,8 @@ class SpeakersFragment : Fragment() {
         viewModel.getSpeakers()?.observe(this, Observer<List<Speaker>> { speakers ->
             speakersAdapter.speakers = speakers
         })
+
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onAttach(context: Context) {
