@@ -1,29 +1,29 @@
 package rocks.mobileera.mobileera.model
 
-import android.graphics.Color
+import rocks.mobileera.mobileera.R
 
 
 class Tag {
-    fun color(name: String): Int {
 
-        when (name) {
-            "Odin" -> return Color.rgb(187, 94, 125)
-            "Freyja" -> return Color.rgb(135, 124, 176)
-            "Thon" -> return Color.rgb(64, 127, 127)
-            "Android" -> return Color.rgb(164, 198, 57)
-            "iOS" -> return Color.rgb(95, 201, 248)
-            "Cross-platform" -> return Color.rgb(179, 142, 248)
-            "Productivity" -> return Color.rgb(255, 89, 124)
-            "Mobile Web" -> return Color.rgb(140, 136, 124)
-            "Security" -> return Color.rgb(69, 69, 69)
-            "IoT" -> return Color.rgb(255, 158, 124)
-            "AI" -> return Color.rgb(242, 213, 0)
-            "Machine Learning" -> return Color.rgb(72, 31, 240)
-            "Architecture" -> return Color.rgb(253, 151, 39)
-            "Backend" -> return Color.rgb(43, 152, 240)
-            "CI" -> return Color.rgb(205, 218, 73)
+    companion object {
+        fun background(name: String): Int {
+            when (name) {
+
+                "Android" -> return R.drawable.selector_background_tag_android
+                "iOS" -> return R.drawable.selector_background_tag_ios
+                "Cross-platform" -> return R.drawable.selector_background_tag_cross_platform
+                "Productivity" -> return R.drawable.selector_background_tag_productivity
+                "Mobile Web" -> return R.drawable.selector_background_tag_mobile_web
+                "Security" -> return R.drawable.selector_background_tag_security
+                "IoT" -> return R.drawable.selector_background_tag_iot
+                "AI" -> return R.drawable.selector_background_tag_ai
+                "Machine Learning" -> return R.drawable.selector_background_tag_machine_learning
+                "Architecture" -> return R.drawable.selector_background_tag_architecture
+                "Backend" -> return R.drawable.selector_background_tag_backend
+                "CI" -> return R.drawable.selector_background_tag_ci
+            }
+
+            return R.drawable.selector_background_tag_android
         }
-
-        return Color.BLACK
     }
 }

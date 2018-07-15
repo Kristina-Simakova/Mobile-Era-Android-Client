@@ -7,15 +7,19 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.flexbox.FlexboxLayout
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_session.view.*
 import rocks.mobileera.mobileera.R
+import rocks.mobileera.mobileera.adapters.TagsAdapter
+import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.model.Session
 import rocks.mobileera.mobileera.utils.CircleTransform
 import rocks.mobileera.mobileera.utils.Preferences.Companion.domain
 
-class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?) : RecyclerView.ViewHolder(view) {
     val titleTextView: TextView = view.titleTextView
     val nameTextView: TextView = view.nameTextView
     val avatarImageView: ImageView = view.avatarImageView
@@ -24,7 +28,7 @@ class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val colorBarView: View = view.colorBarView
     val extraSpeakersTextView: TextView = view.extraSpeakersTextView
     val roomTextView: TextView = view.roomTextView
-    val tagsFlexboxLayout: FlexboxLayout = view.tagsFlexboxLayout
+    val tagsRecyclerView: RecyclerView = view.tagsRecyclerView
 
 
     fun set(context: Context?, session: Session?, track: Int) {
@@ -42,24 +46,27 @@ class SessionViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         setFavoritesButton(context, session)
         setAvatar(session)
         setTrack(session, track)
-        setTags(session)
+        setTags(context, session)
     }
 
-    private fun setTags(session: Session) {
+    private fun setTags(context: Context, session: Session) {
         if (session.isSystemAnnounce()) {
-            tagsFlexboxLayout.visibility = View.GONE
+            tagsRecyclerView.visibility = View.GONE
             return
         }
 
         session.tags?.let {tags ->
             if (tags.isEmpty()) {
-                tagsFlexboxLayout.visibility = View.GONE
+                tagsRecyclerView.visibility = View.GONE
                 return
             }
 
-            tagsFlexboxLayout.visibility = View.VISIBLE
-
-            // Adding right tags into the flexbox
+            tagsRecyclerView.visibility = View.VISIBLE
+            val layoutManager = FlexboxLayoutManager(context)
+            layoutManager.flexDirection = FlexDirection.COLUMN
+            layoutManager.justifyContent = JustifyContent.FLEX_END
+            tagsRecyclerView.layoutManager = layoutManager
+            tagsRecyclerView.adapter = TagsAdapter(tags, tagsListener)
         }
     }
 

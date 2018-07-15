@@ -30,6 +30,7 @@ class ScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        daysFragments.clear()
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.workshops), null, true))
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day1), null, false))
         daysFragments.add(DayFragment.newInstance(activity?.applicationContext?.getString(R.string.day2), null, false))

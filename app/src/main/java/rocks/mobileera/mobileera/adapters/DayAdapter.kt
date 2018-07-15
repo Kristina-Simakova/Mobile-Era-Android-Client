@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.row_header_timeslot.view.*
 import rocks.mobileera.mobileera.R
+import rocks.mobileera.mobileera.adapters.interfaces.SessionCallback
+import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.adapters.viewHolders.SessionViewHolder
 import rocks.mobileera.mobileera.model.Day
-import rocks.mobileera.mobileera.fragments.DayFragment
 import rocks.mobileera.mobileera.model.Legend
 
 import rocks.mobileera.mobileera.utils.Preferences
@@ -20,7 +21,8 @@ import rocks.mobileera.mobileera.model.Timeslot
 class DayAdapter(
         private val context: Context?,
         day: Day?,
-        private val listener: DayFragment.OnSessionListListener?)
+        private val sessionListener: SessionCallback?,
+        private val tagsListener: TagCallback?)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val onSessionClickListener: View.OnClickListener
@@ -39,8 +41,16 @@ class DayAdapter(
     init {
         // TODO: make sure that it's been called
         onSessionClickListener = View.OnClickListener { v ->
-            // TODO: implement on session click listener
-            //listener.onSessionClicked(session)
+            // TODO: test it
+
+            val position = v.tag as? Int
+            position?.let {
+                val session = data.getOrNull(position)
+                if (session is Session) {
+                   sessionListener?.onSessionClick(session)
+                }
+            }
+
         }
     }
 
@@ -51,7 +61,7 @@ class DayAdapter(
         }
 
         if (viewType == VIEW_HOLDER_TYPE_SESSION) {
-            return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false))
+            return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false), tagsListener)
         }
 
         return LegendViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_legend, parent, false))
@@ -93,6 +103,11 @@ class DayAdapter(
                     setOnClickListener(onSessionClickListener)
                 }
             }
+        }
+
+        with(holder.itemView) {
+            tag = position
+            setOnClickListener(onSessionClickListener)
         }
     }
 
