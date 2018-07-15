@@ -21,6 +21,7 @@ class Tag {
                 "Architecture" -> return R.drawable.selector_background_tag_architecture
                 "Backend" -> return R.drawable.selector_background_tag_backend
                 "CI" -> return R.drawable.selector_background_tag_ci
+                "React Native" -> return R.drawable.selector_background_tag_react_native
             }
 
             return R.drawable.selector_background_tag_android

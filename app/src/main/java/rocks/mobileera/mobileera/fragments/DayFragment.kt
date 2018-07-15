@@ -7,21 +7,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.DayAdapter
+import rocks.mobileera.mobileera.adapters.interfaces.AddToFavoritesCallback
 import rocks.mobileera.mobileera.adapters.interfaces.SessionCallback
 import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.model.Day
 import rocks.mobileera.mobileera.model.Session
+import rocks.mobileera.mobileera.utils.Preferences
 
 
-class DayFragment: Fragment(), TagCallback, SessionCallback {
+class DayFragment: Fragment(), TagCallback, SessionCallback, AddToFavoritesCallback {
 
     private var title: String? = ""
     private var isWorkshopsDay: Boolean = false
     private var dayAdapter: DayAdapter? = null
-    private var sessionsListener: SessionCallback? = null
-    private var tagsListener: TagCallback? = null
 
     var day: Day? = null
         set(value) {
@@ -49,9 +50,7 @@ class DayFragment: Fragment(), TagCallback, SessionCallback {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        sessionsListener = this
-        tagsListener = this
-        dayAdapter = DayAdapter(activity?.applicationContext, day, sessionsListener, tagsListener)
+        dayAdapter = DayAdapter(activity?.applicationContext, day, this, this, this)
         val view = inflater.inflate(R.layout.fragment_day, container, false)
 
         if (view is RecyclerView) {
@@ -65,10 +64,23 @@ class DayFragment: Fragment(), TagCallback, SessionCallback {
     }
 
     override fun onTagClick(tag: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        activity?.applicationContext?.let {context ->
+            Preferences(context).toggleSelectedTag(tag)
+
+            // TODO: broadcast even to update UI
+        }
     }
 
     override fun onSessionClick(session: Session?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        session?.let { value ->
+            val bundle = SessionFragment.createBundle(value)
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigation_schedule_to_sessionFragment, bundle)
+        }
+    }
+
+    override fun onAddToFavoritesClick(session: Session?) {
+        activity?.applicationContext?.let {context ->
+            session?.toggleFavorites(context)
+        }
     }
 }

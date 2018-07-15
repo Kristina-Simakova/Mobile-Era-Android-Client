@@ -35,5 +35,7 @@
     <color name="colorBackend_pressed">#0e71c1</color>
     <color name="colorCI">#cdda49</color>
     <color name="colorCI_pressed">#a6b224</color>
+    <color name="colorReactNative">#000000</color>
+    <color name="colorReactNative_pressed">#333333</color>
 
 </resources>

@@ -39,11 +39,14 @@ class ScheduleFragment : Fragment() {
         daysViewPager.offscreenPageLimit = 2
         daysTabLayout.setupWithViewPager(daysViewPager)
 
+        progressCircular.visibility = View.VISIBLE
+
         viewModel = ViewModelProviders.of(this).get(ScheduleViewModel::class.java)
         viewModel.getDays()?.observe(this, Observer<List<Day>> {days ->
             daysFragments[0].day = days?.getOrNull(0)
             daysFragments[1].day = days?.getOrNull(1)
             daysFragments[2].day = days?.getOrNull(2)
+            progressCircular.visibility = View.GONE
         })
     }
 }

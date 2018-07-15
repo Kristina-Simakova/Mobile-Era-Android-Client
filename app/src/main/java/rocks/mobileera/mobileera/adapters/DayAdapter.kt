@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.row_header_timeslot.view.*
+import kotlinx.android.synthetic.main.row_session.view.*
 import rocks.mobileera.mobileera.R
+import rocks.mobileera.mobileera.adapters.interfaces.AddToFavoritesCallback
 import rocks.mobileera.mobileera.adapters.interfaces.SessionCallback
 import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.adapters.viewHolders.SessionViewHolder
@@ -22,6 +24,7 @@ class DayAdapter(
         private val context: Context?,
         day: Day?,
         private val sessionListener: SessionCallback?,
+        private val addToFavoritesListener: AddToFavoritesCallback?,
         private val tagsListener: TagCallback?)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -39,10 +42,7 @@ class DayAdapter(
         }
 
     init {
-        // TODO: make sure that it's been called
         onSessionClickListener = View.OnClickListener { v ->
-            // TODO: test it
-
             val position = v.tag as? Int
             position?.let {
                 val session = data.getOrNull(position)
@@ -61,7 +61,7 @@ class DayAdapter(
         }
 
         if (viewType == VIEW_HOLDER_TYPE_SESSION) {
-            return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false), tagsListener)
+            return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_session, parent, false), tagsListener, addToFavoritesListener)
         }
 
         return LegendViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_legend, parent, false))

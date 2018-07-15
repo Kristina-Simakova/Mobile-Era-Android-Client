@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.row_speaker.view.*
+import kotlinx.android.synthetic.main.row_tag_clickable.view.*
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
+import rocks.mobileera.mobileera.model.Tag
 
 class TagsAdapter (
         private val tags: List<String>,
@@ -25,12 +25,14 @@ class TagsAdapter (
         return tags.size
     }
 
-    override fun onBindViewHolder(holder: SpeakersAdapter.ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        tags.getOrNull(position)?.let {tag ->
+            holder.tagTextView.text = tag
+            holder.tagTextView.setBackgroundResource(Tag.background(tag))
+        }
     }
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val avatarImageView: ImageView = view.avatarImageView
-        val nameTextView: TextView = view.nameTextView
+        val tagTextView: TextView = view.tagTextView
     }
 }

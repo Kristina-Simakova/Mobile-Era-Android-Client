@@ -18,8 +18,11 @@ import rocks.mobileera.mobileera.adapters.interfaces.TagCallback
 import rocks.mobileera.mobileera.model.Session
 import rocks.mobileera.mobileera.utils.CircleTransform
 import rocks.mobileera.mobileera.utils.Preferences.Companion.domain
+import android.support.v7.widget.DividerItemDecoration
+import com.squareup.picasso.Callback
+import rocks.mobileera.mobileera.adapters.interfaces.AddToFavoritesCallback
 
-class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?) : RecyclerView.ViewHolder(view) {
+class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?, private val addToFavoritesListener: AddToFavoritesCallback?) : RecyclerView.ViewHolder(view) {
     val titleTextView: TextView = view.titleTextView
     val nameTextView: TextView = view.nameTextView
     val avatarImageView: ImageView = view.avatarImageView
@@ -30,8 +33,19 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?)
     val roomTextView: TextView = view.roomTextView
     val tagsRecyclerView: RecyclerView = view.tagsRecyclerView
 
+    private val onAddToFavoritesListener: View.OnClickListener
+    private var session: Session? = null
+
+    init {
+        onAddToFavoritesListener = View.OnClickListener { v ->
+            addToFavoritesListener?.onAddToFavoritesClick(session)
+            addToFavorites.setImageResource( if (session?.isFavorite(v.context.applicationContext) == true) R.drawable.star_filled else R.drawable.star_empty )
+        }
+    }
 
     fun set(context: Context?, session: Session?, track: Int) {
+        this.session = session
+
         val context = context?.let { it } ?: return
         val session = session?.let { it } ?: return
 
@@ -63,10 +77,15 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?)
 
             tagsRecyclerView.visibility = View.VISIBLE
             val layoutManager = FlexboxLayoutManager(context)
-            layoutManager.flexDirection = FlexDirection.COLUMN
+            layoutManager.flexDirection = FlexDirection.ROW_REVERSE
             layoutManager.justifyContent = JustifyContent.FLEX_END
             tagsRecyclerView.layoutManager = layoutManager
             tagsRecyclerView.adapter = TagsAdapter(tags, tagsListener)
+
+            val dividerItemDecoration = DividerItemDecoration(context,
+                    RecyclerView.VERTICAL)
+            dividerItemDecoration.setDrawable(context.resources.getDrawable(R.drawable.divirer_tags_horizontal))
+            tagsRecyclerView.addItemDecoration(dividerItemDecoration)
         }
     }
 
@@ -101,15 +120,18 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?)
     }
 
     private fun setFavoritesButton(context: Context, session: Session) {
+        addToFavorites.setOnClickListener(onAddToFavoritesListener)
+
         addToFavorites.visibility = (if (session.isSystemAnnounce()) View.GONE else View.VISIBLE)
         addToFavorites.setImageResource( if (session.isFavorite(context)) R.drawable.star_filled else R.drawable.star_empty )
 
-        addToFavorites.setOnClickListener {  }
+        addToFavorites.setOnClickListener(onAddToFavoritesListener)
     }
 
     private fun setAvatar(session: Session) {
         session.speakersList?.firstOrNull()?.photoUrl?.let {photoUrl ->
-            Picasso.get().load(Uri.parse(domain + photoUrl)).transform(CircleTransform()).into(avatarImageView)
+
+            Picasso.get().load(Uri.parse(domain + photoUrl)).transform(CircleTransform()).into(avatarImageView, PicCallback())
         } ?: run {
             session.image?.let {sessionUrl ->
                 if (sessionUrl.isEmpty()) {
@@ -122,5 +144,16 @@ class SessionViewHolder(val view: View,  private val tagsListener: TagCallback?)
                 avatarImageView.setImageResource(android.R.color.transparent)
             }
         }
+    }
+}
+
+class PicCallback : Callback {
+
+    override fun onSuccess() {
+        print("успех")
+    }
+
+    override fun onError(e: Exception) {
+        print(e)
     }
 }
