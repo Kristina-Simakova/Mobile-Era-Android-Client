@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_speakers.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.SpeakersAdapter
 import rocks.mobileera.mobileera.adapters.interfaces.SpeakerCallback

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), SpeakerCallback, SessionCallback, AddT
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolBar)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment
         findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.let { bottomNavView ->

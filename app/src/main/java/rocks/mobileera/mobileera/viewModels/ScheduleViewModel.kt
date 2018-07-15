@@ -10,10 +10,7 @@ import com.google.gson.reflect.TypeToken
 import rocks.mobileera.mobileera.model.Session
 import rocks.mobileera.mobileera.model.Timeslot
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.prefs.Preferences
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
