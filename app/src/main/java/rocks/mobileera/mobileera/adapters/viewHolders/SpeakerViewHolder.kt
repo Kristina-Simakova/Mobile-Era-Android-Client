@@ -22,6 +22,11 @@ class SpeakerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private var speaker: Speaker? = null
 
+    fun set(speaker: Speaker?) {
+        set(speaker, null)
+        indexTextView.visibility = View.GONE
+    }
+
     fun set(speaker: Speaker?, previousSpeaker: Speaker?) {
         this.speaker = speaker
 
@@ -30,7 +35,7 @@ class SpeakerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         nameTextView.text = speaker.name
         companyTextView.text = speaker.company
 
-        indexTextView.visibility = if (speaker.name.firstOrNull() == previousSpeaker?.name?.firstOrNull()) View.GONE else View.VISIBLE
+        indexTextView.visibility = if (speaker.name.firstOrNull() == previousSpeaker?.name?.firstOrNull()) View.INVISIBLE else View.VISIBLE
         indexTextView.text = speaker.name.firstOrNull()?.toString()
 
         Picasso.get().load(Uri.parse(Preferences.domain + speaker.photoUrl)).transform(CircleTransform()).into(avatarImageView)

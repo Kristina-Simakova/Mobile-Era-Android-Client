@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        android:layout_width="wrap_content"
+        android:layout_width="24dp"
         android:layout_height="wrap_content" />
 
     <ImageView
@@ -31,9 +31,9 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/indexTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

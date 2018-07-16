@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_session.*
 
 import rocks.mobileera.mobileera.R
+import rocks.mobileera.mobileera.adapters.viewHolders.SpeakerViewHolder
 import rocks.mobileera.mobileera.model.Session
 
 class SessionFragment : Fragment() {
@@ -41,6 +42,20 @@ class SessionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         updateState(arguments)
         titleTextView.text = session?.title
+
+        session?.speakersList?.getOrNull(0)?.let {
+            SpeakerViewHolder(speaker1Layout).set(it)
+            speaker1Layout.visibility = View.VISIBLE
+        } ?: run {
+            speaker1Layout.visibility = View.GONE
+        }
+
+        session?.speakersList?.getOrNull(1)?.let {
+            SpeakerViewHolder(speaker2Layout).set(it)
+            speaker2Layout.visibility = View.VISIBLE
+        } ?: run {
+            speaker2Layout.visibility = View.GONE
+        }
     }
 
 
