@@ -3,9 +3,7 @@ package rocks.mobileera.mobileera.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.google.gson.Gson
 
 import rocks.mobileera.mobileera.R
@@ -28,5 +26,4 @@ class SpeakerFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_speaker, container, false)
     }
-
 }

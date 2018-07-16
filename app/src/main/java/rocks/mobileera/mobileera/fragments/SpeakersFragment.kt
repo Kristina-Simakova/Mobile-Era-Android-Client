@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_speakers.*
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import rocks.mobileera.mobileera.R
 import rocks.mobileera.mobileera.adapters.SpeakersAdapter
 import rocks.mobileera.mobileera.adapters.interfaces.SpeakerCallback
@@ -22,6 +20,11 @@ class SpeakersFragment : Fragment() {
     private var listener: SpeakerCallback? = null
     private lateinit var viewModel: SpeakersViewModel
     private lateinit var speakersAdapter: SpeakersAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,5 +54,10 @@ class SpeakersFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.menu_speakers, menu)
     }
 }

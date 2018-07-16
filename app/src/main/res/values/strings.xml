@@ -17,5 +17,7 @@
     <string name="odin">Odin</string>
     <string name="freyja">Freyja</string>
     <string name="thor">Thor</string>
+    <string name="filter">Filter</string>
+    <string name="info">Info</string>
 
 </resources>
