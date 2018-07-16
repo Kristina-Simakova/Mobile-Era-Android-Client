@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
+
     <color name="colorSeparator">#ECECEC</color>
     <color name="colorFreyja">#78CADF</color>
     <color name="colorOdin">#62B069</color>
