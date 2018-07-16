@@ -39,6 +39,7 @@ class SpeakersFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(SpeakersViewModel::class.java)
         viewModel.getSpeakers()?.observe(this, Observer<List<Speaker>> { speakers ->
             speakersAdapter.speakers = speakers
+            progressCircular.visibility = View.GONE
         })
 
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
