@@ -60,7 +60,7 @@ class ScheduleFragment : BaseFragment() {
 
                         tags.add(0, context.getString(R.string.filter_show_only_favs))
 
-                        val dialogue = MaterialDialog.Builder(context)
+                        val dialog = MaterialDialog.Builder(context)
                                 .title(R.string.filter)
                                 .items(tags)
                                 .alwaysCallMultiChoiceCallback()
@@ -114,7 +114,7 @@ class ScheduleFragment : BaseFragment() {
                             selectedIndices.add(tags.indexOf(selectedTag) + 1) // +1 - "Show only favorites" option, it's not part of selectedTags
                         }
 
-                        dialogue.setSelectedIndices(selectedIndices.toTypedArray())
+                        dialog.setSelectedIndices(selectedIndices.toTypedArray())
                     }
                 }
             }

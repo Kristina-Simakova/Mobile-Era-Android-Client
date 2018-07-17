@@ -1,7 +1,10 @@
 package rocks.mobileera.mobileera.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.view.MenuItem
+import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
 import rocks.mobileera.mobileera.R
@@ -12,7 +15,7 @@ abstract class BaseFragment : Fragment() {
         when (item?.itemId) {
             R.id.navigation_info -> {
                 activity?.let {context ->
-                    MaterialDialog.Builder(context)
+                    val dialog = MaterialDialog.Builder(context)
                             .title(R.string.information)
                             .iconRes(R.drawable.ic_info_blue)
                             .itemsCallback { _, _, index, _ ->
@@ -27,12 +30,51 @@ abstract class BaseFragment : Fragment() {
                             .customView(R.layout.dialogue_info, true)
                             .theme(Theme.LIGHT)
                             .show()
+
+                    dialog.customView?.findViewById<View>(R.id.sponsorsTextView)?.setOnClickListener {
+                        openUrl("https://2017.mobileera.rocks/sponsors/")
+                    }
+
+                    dialog.customView?.findViewById<View>(R.id.codTextView)?.setOnClickListener {
+                        openUrl("https://2017.mobileera.rocks/cod/")
+                    }
+
+                    dialog.customView?.findViewById<View>(R.id.mobileEraTeamTextView)?.setOnClickListener {
+                        openUrl("https://2017.mobileera.rocks/team/")
+                    }
+
+                    dialog.customView?.findViewById<View>(R.id.contactUsTextView)?.setOnClickListener {
+                        sendEmail("contact@mobileera.rocks")
+                    }
+
+                    dialog.customView?.findViewById<View>(R.id.contactUsTextView)?.setOnClickListener {
+                        sendEmail("loginov.k@gmail.com")
+                    }
                 }
             }
         }
 
         return super.onOptionsItemSelected(item)
 
+    }
+
+    private fun sendEmail(email: String) {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        try {
+            startActivity(emailIntent)
+        } catch (e: Exception) {
+            print(e)
+        }
+    }
+
+    private fun openUrl(link: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        try {
+            startActivity(browserIntent)
+        } catch (e: Exception) {
+            print(e)
+        }
     }
 
 

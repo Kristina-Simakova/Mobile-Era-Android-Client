@@ -84,6 +84,10 @@ class SpeakerActivity : AppCompatActivity() {
 
     private fun openUrl(link: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-        startActivity(browserIntent)
+        try {
+            startActivity(browserIntent)
+        } catch (e: Exception) {
+            print(e)
+        }
     }
 }

@@ -117,7 +117,11 @@ class SessionFragment : Fragment() {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, session?.endDate?.time)
                 .putExtra(Events.TITLE, session?.title)
                 .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY)
-        startActivity(intent)
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            print(e)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
