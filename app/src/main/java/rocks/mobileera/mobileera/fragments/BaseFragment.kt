@@ -47,7 +47,7 @@ abstract class BaseFragment : Fragment() {
                         sendEmail("contact@mobileera.rocks")
                     }
 
-                    dialog.customView?.findViewById<View>(R.id.contactUsTextView)?.setOnClickListener {
+                    dialog.customView?.findViewById<View>(R.id.credentialsTextView)?.setOnClickListener {
                         sendEmail("loginov.k@gmail.com")
                     }
                 }
@@ -59,8 +59,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun sendEmail(email: String) {
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+        emailIntent.type = "message/rfc822"
+        emailIntent.data = Uri.parse("mailto:$email")
+        emailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         try {
             startActivity(emailIntent)
         } catch (e: Exception) {
