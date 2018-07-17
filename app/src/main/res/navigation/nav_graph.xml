@@ -33,8 +33,12 @@
     <fragment
         android:id="@+id/sessionFragment"
         android:name="rocks.mobileera.mobileera.fragments.SessionFragment"
-        android:label=""
-        tools:layout="@layout/fragment_session" />
+        android:label=" "
+        tools:layout="@layout/fragment_session" >
+        <action
+            android:id="@+id/action_sessionFragment_to_speakerFragment"
+            app:destination="@id/speakerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/speakerFragment"
         android:name="rocks.mobileera.mobileera.fragments.SpeakerFragment"

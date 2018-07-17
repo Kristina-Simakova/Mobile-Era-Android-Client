@@ -26,8 +26,8 @@ class SpeakersAdapter(
         onClickListener = View.OnClickListener { v ->
             val position = v.tag as? Int
             position?.let {
-                val speaker = speakers?.getOrNull(position) //TODO: test it
-                listener?.onSpeakerClick(speaker)
+                val speaker = speakers?.getOrNull(position)
+                listener?.onSpeakerClick(speaker, R.id.action_navigation_speakers_to_speakerFragment)
             }
         }
     }

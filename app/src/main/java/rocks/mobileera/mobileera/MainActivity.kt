@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity(), SpeakerCallback, SessionCallback, AddT
     override fun onSupportNavigateUp() =
             findNavController(hostFragment).navigateUp()
 
-    override fun onSpeakerClick(speaker: Speaker?) {
+    override fun onSpeakerClick(speaker: Speaker?, action: Int) {
         speaker?.let { value ->
             val bundle = SpeakerFragment.createBundle(value)
-            NavHostFragment.findNavController(hostFragment).navigate(R.id.action_navigation_speakers_to_speakerFragment, bundle)
+            NavHostFragment.findNavController(hostFragment).navigate(action, bundle)
         }
     }
 

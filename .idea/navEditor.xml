@@ -71,6 +71,15 @@
                             <option name="y" value="-244" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_sessionFragment_to_speakerFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -79,8 +88,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="33" />
-                            <option name="y" value="122" />
+                            <option name="x" value="178" />
+                            <option name="y" value="127" />
                           </Point>
                         </option>
                       </LayoutPositions>
