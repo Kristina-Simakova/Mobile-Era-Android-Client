@@ -11,7 +11,6 @@ class Preferences(private var context: Context) {
     private val SHARED_PREFERENCES_KEY: String = "SHARED_PREFERENCES_KEY"
 
     private val SELECTED_TAGS: String = "SELECTED_TAGS"
-    private val ALL_TAGS: String = "ALL_TAGS"
     private val SHOW_ONLY_FAVORITES: String = "SHOW_ONLY_FAVORITES"
 
     fun store(key: String, value: Boolean) {
@@ -34,24 +33,12 @@ class Preferences(private var context: Context) {
 
     private fun readArray(key: String): ArrayList<String> {
         val value = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0).getString(key, "")
-        if (value.isEmpty() || !value.contains("•")) {
+        if (value.isEmpty()) {
             return ArrayList()
         }
 
         return ArrayList(value.split("•"))
     }
-
-    var showOnlyFavorite: Boolean
-        get() = read(SHOW_ONLY_FAVORITES)
-        set(value) {
-            store(SHOW_ONLY_FAVORITES, value)
-        }
-
-    var allTags: ArrayList<String>
-        get() = readArray(ALL_TAGS)
-        set(value) {
-            store(ALL_TAGS, value)
-        }
 
     var selectedTags: ArrayList<String>
         get() = readArray(SELECTED_TAGS)
@@ -59,15 +46,11 @@ class Preferences(private var context: Context) {
             store(SELECTED_TAGS, value)
         }
 
-    fun toggleShowOnlyFavorites() {
-        showOnlyFavorite = !showOnlyFavorite
-    }
 
-    fun toggleSelectedTag(tag: String) {
-        if (selectedTags.contains(tag)) {
-            selectedTags.remove(tag)
-        } else {
-            selectedTags.add(tag) // TODO: test if store is being called
+    var showOnlyFavorite: Boolean
+        get() = read(SHOW_ONLY_FAVORITES)
+        set(value) {
+            store(SHOW_ONLY_FAVORITES, value)
         }
-    }
+
 }

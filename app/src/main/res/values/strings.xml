@@ -19,5 +19,7 @@
     <string name="thor">Thor</string>
     <string name="filter">Filter</string>
     <string name="info">Info</string>
-
+    <string name="filter_ok">OK</string>
+    <string name="filter_clear">Clear Filters</string>
+    <string name="filter_show_only_favs">Show only favorite sessions?</string>
 </resources>

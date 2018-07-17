@@ -95,6 +95,16 @@ class DayFragment: Fragment() {
             viewModel.getDays()?.observe(this, Observer<List<Day>> { days ->
                 day = days?.getOrNull(dayIndex)
             })
+
+            viewModel.selectedTags.observe(this, Observer<List<String>> { _ ->
+                dayAdapter?.doFilter()
+                dayAdapter?.notifyDataSetChanged()
+            })
+
+            viewModel.showOnlyFavorite.observe(this, Observer<Boolean> { _ ->
+                dayAdapter?.doFilter()
+                dayAdapter?.notifyDataSetChanged()
+            })
         }
 
         if (view is RecyclerView) {

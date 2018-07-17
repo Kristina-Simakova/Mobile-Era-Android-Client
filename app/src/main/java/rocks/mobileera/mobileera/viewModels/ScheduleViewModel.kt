@@ -2,6 +2,7 @@ package rocks.mobileera.mobileera.viewModels
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import com.google.firebase.database.*
 import rocks.mobileera.mobileera.model.Day
 import rocks.mobileera.mobileera.model.Speaker
@@ -34,7 +35,9 @@ class ScheduleViewModel : ViewModel() {
         return days
     }
 
-    var allTags: MutableLiveData<HashSet<String>> = MutableLiveData()
+    var showOnlyFavorite: MutableLiveData<Boolean> = MutableLiveData()
+    var selectedTags: MutableLiveData<List<String>> = MutableLiveData()
+    var allTags: ArrayList<String> = ArrayList()
 
     private fun loadSchedule() {
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.US)
@@ -120,7 +123,7 @@ class ScheduleViewModel : ViewModel() {
                 workshopDay.timeslots = timeslots
                 schedule.add(0, workshopDay)
 
-                allTags.value = allTagsList
+                allTags = ArrayList(allTagsList)
                 days?.value = schedule
             }
 

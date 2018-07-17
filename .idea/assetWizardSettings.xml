@@ -19,8 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/logo@3x.png" />
-                                      <entry key="outputName" value="mobile_era_logo" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Desktop/images to convert/ic_filter_list_black_24dp.png" />
+                                      <entry key="outputName" value="ic_filter_normal" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
@@ -58,6 +58,11 @@
                             </entry>
                           </map>
                         </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="ACTIONBAR" />
+                          </map>
+                        </option>
                       </PersistentState>
                     </value>
                   </entry>
@@ -77,9 +82,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_calendar" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/baseline-calendar_today-24px.svg" />
+                            <entry key="outputName" value="ic_filter_active" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/ic_filter_active.svg" />
                           </map>
                         </option>
                       </PersistentState>
