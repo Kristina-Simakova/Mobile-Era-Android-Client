@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
+import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_schedule.*
 
 import rocks.mobileera.mobileera.R
@@ -17,7 +18,7 @@ import com.afollestad.materialdialogs.Theme
 import rocks.mobileera.mobileera.utils.Preferences
 
 
-class ScheduleFragment : Fragment() {
+class ScheduleFragment : BaseFragment() {
 
     lateinit var viewModel: ScheduleViewModel
     private lateinit var adapter: DaysAdapter
@@ -116,9 +117,6 @@ class ScheduleFragment : Fragment() {
                         dialogue.setSelectedIndices(selectedIndices.toTypedArray())
                     }
                 }
-            }
-
-            R.id.navigation_info -> {
             }
         }
 

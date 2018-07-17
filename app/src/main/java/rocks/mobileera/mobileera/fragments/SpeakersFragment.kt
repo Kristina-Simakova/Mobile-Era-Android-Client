@@ -15,7 +15,7 @@ import rocks.mobileera.mobileera.adapters.interfaces.SpeakerCallback
 import rocks.mobileera.mobileera.model.Speaker
 import rocks.mobileera.mobileera.viewModels.SpeakersViewModel
 
-class SpeakersFragment : Fragment() {
+class SpeakersFragment : BaseFragment() {
 
     private var listener: SpeakerCallback? = null
     private lateinit var viewModel: SpeakersViewModel

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_venue.view.*
 
 import rocks.mobileera.mobileera.R
 
-class VenueFragment : Fragment() {
+class VenueFragment : BaseFragment() {
 
     private val venueCoordinate = LatLng(59.910142, 10.725090)
     private val partyVenueCoordinate = LatLng(59.9105716, 10.7262615)
