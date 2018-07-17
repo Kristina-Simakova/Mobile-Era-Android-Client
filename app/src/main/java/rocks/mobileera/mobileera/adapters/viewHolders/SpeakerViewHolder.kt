@@ -30,17 +30,17 @@ class SpeakerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     fun set(speaker: Speaker?, previousSpeaker: Speaker?) {
         this.speaker = speaker
 
-        val speaker = speaker?.let { it } ?: return
+        speaker?.let { it
+            nameTextView.text = speaker.name
+            companyTextView.text = speaker.company
 
-        nameTextView.text = speaker.name
-        companyTextView.text = speaker.company
+            indexTextView.visibility = if (speaker.name.firstOrNull() == previousSpeaker?.name?.firstOrNull()) View.INVISIBLE else View.VISIBLE
+            indexTextView.text = speaker.name.firstOrNull()?.toString()
 
-        indexTextView.visibility = if (speaker.name.firstOrNull() == previousSpeaker?.name?.firstOrNull()) View.INVISIBLE else View.VISIBLE
-        indexTextView.text = speaker.name.firstOrNull()?.toString()
+            Picasso.get().load(Uri.parse(Preferences.domain + speaker.photoUrl)).transform(CircleTransform()).into(avatarImageView)
 
-        Picasso.get().load(Uri.parse(Preferences.domain + speaker.photoUrl)).transform(CircleTransform()).into(avatarImageView)
-
-        setSocials(speaker)
+            setSocials(speaker)
+        }
     }
 
     private fun setSocials(speaker: Speaker) {
