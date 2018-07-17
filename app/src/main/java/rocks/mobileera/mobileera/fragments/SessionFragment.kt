@@ -51,7 +51,7 @@ class SessionFragment : Fragment() {
             val position = v.tag as? Int
             position?.let {
                 val speaker = session?.speakersList?.getOrNull(position)
-                speakerListener?.onSpeakerClick(speaker, R.id.action_sessionFragment_to_speakerFragment)
+                speakerListener?.onSpeakerClick(speaker, R.id.action_sessionFragment_to_speakerActivity)
             }
         }
     }

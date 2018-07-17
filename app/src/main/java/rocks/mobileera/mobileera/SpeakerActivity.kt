@@ -1,21 +1,19 @@
-package rocks.mobileera.mobileera.fragments
+package rocks.mobileera.mobileera
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.*
+import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import rocks.mobileera.mobileera.R
-import kotlinx.android.synthetic.main.fragment_speaker.*
-
+import kotlinx.android.synthetic.main.activity_speaker.*
 import rocks.mobileera.mobileera.model.Speaker
 import rocks.mobileera.mobileera.utils.Preferences
-import android.content.Intent
 
+class SpeakerActivity : AppCompatActivity() {
 
-
-class SpeakerFragment : Fragment() {
+    private var speaker: Speaker? = null
 
     companion object {
 
@@ -28,21 +26,19 @@ class SpeakerFragment : Fragment() {
         }
     }
 
-    private var speaker: Speaker? = null
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_speaker, container, false)
-    }
-
     private fun updateState(arguments: Bundle?) {
         arguments?.let { value ->
             speaker = Gson().fromJson(value.getString(ARGS_SPEAKER_JSON), Speaker::class.java)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        updateState(arguments)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_speaker)
+        updateState(intent.extras)
+        setSupportActionBar(collapsingToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = speaker?.name
 
         speaker?.let {
             Picasso.get().load(Uri.parse(Preferences.domain + it.photoUrl)).into(avatarImageView)
@@ -50,7 +46,6 @@ class SpeakerFragment : Fragment() {
             avatarImageView.setImageResource(android.R.color.transparent)
         }
 
-        nameTextView.text = speaker?.name
         companyTextView.text = speaker?.company
         bioTextView.text = speaker?.shortBio
 
@@ -81,6 +76,10 @@ class SpeakerFragment : Fragment() {
                 openUrl(it)
             }
         }
+
+        socialLinearLayout.visibility = if (twitterImageView.visibility == View.VISIBLE ||
+                githubImageView.visibility == View.VISIBLE ||
+                webImageView.visibility == View.VISIBLE) View.VISIBLE else View.GONE
     }
 
     private fun openUrl(link: String) {

@@ -27,7 +27,7 @@ class SpeakersAdapter(
             val position = v.tag as? Int
             position?.let {
                 val speaker = speakers?.getOrNull(position)
-                listener?.onSpeakerClick(speaker, R.id.action_navigation_speakers_to_speakerFragment)
+                listener?.onSpeakerClick(speaker, R.id.action_navigation_speakers_to_speakerActivity)
             }
         }
     }

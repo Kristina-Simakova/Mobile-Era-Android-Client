@@ -21,8 +21,8 @@
         android:label="@string/speakers"
         tools:layout="@layout/fragment_speakers" >
         <action
-            android:id="@+id/action_navigation_speakers_to_speakerFragment"
-            app:destination="@id/speakerFragment" />
+            android:id="@+id/action_navigation_speakers_to_speakerActivity"
+            app:destination="@id/speakerActivity" />
     </fragment>
 
     <fragment
@@ -36,12 +36,12 @@
         android:label=" "
         tools:layout="@layout/fragment_session" >
         <action
-            android:id="@+id/action_sessionFragment_to_speakerFragment"
-            app:destination="@id/speakerFragment" />
+            android:id="@+id/action_sessionFragment_to_speakerActivity"
+            app:destination="@id/speakerActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/speakerFragment"
-        android:name="rocks.mobileera.mobileera.fragments.SpeakerFragment"
-        android:label=""
-        tools:layout="@layout/fragment_speaker" />
+    <activity
+        android:id="@+id/speakerActivity"
+        android:name="rocks.mobileera.mobileera.SpeakerActivity"
+        android:label="activity_speaker"
+        tools:layout="@layout/activity_speaker" />
 </navigation>

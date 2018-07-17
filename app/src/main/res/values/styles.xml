@@ -11,6 +11,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SpeakerTheme" parent="AppTheme">
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+    </style>
+
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>

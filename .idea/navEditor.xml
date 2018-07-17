@@ -40,7 +40,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_navigation_speakers_to_speakerFragment">
+                            <entry key="action_navigation_speakers_to_speakerActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -73,7 +73,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_sessionFragment_to_speakerFragment">
+                            <entry key="action_sessionFragment_to_speakerActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -83,13 +83,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="speakerFragment">
+                  <entry key="speakerActivity">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="178" />
-                            <option name="y" value="127" />
+                            <option name="x" value="326" />
+                            <option name="y" value="112" />
                           </Point>
                         </option>
                       </LayoutPositions>
